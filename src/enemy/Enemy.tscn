@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://bxli045b1g3gy"]
+
+[ext_resource type="Texture2D" uid="uid://batjdaintn7u0" path="res://src/player/assets/alienGreen_front.png" id="1_tjud7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uw6w5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_tjud7")
+}],
+"loop": true,
+"name": &"still",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jvq8d"]
+radius = 53.0
+height = 158.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uw6w5"]
+radius = 53.0
+height = 158.0
+
+[node name="Player" type="CharacterBody2D" unique_id=2075353333]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=29865821]
+sprite_frames = SubResource("SpriteFrames_uw6w5")
+animation = &"still"
+
+[node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=624865473]
+position = Vector2(-1, 56)
+shape = SubResource("CapsuleShape2D_jvq8d")
+debug_color = Color(0, 0.6, 0.7019608, 0.27450982)
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=514167288]
+visible = false
+
+[node name="CollisionShape" type="CollisionShape2D" parent="DamageArea" unique_id=426439834]
+position = Vector2(-1, 56)
+shape = SubResource("CapsuleShape2D_uw6w5")
+debug_color = Color(0.99215686, 0.015686275, 0.23137255, 0.27450982)
