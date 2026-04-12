@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://dhyqv6l3v7m4a"]
+
+[ext_resource type="Script" uid="uid://lcnu5sut7tf6" path="res://_backup/scripts/GameOverUI.gd" id="1_ingbt"]
+
+[node name="GameOverUI" type="CanvasLayer" unique_id=1595202956]
+script = ExtResource("1_ingbt")
+
+[node name="Panel" type="Panel" parent="." unique_id=1808604656]
+
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=1731244519]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 182.0
+offset_bottom = 217.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="Panel/VBox" unique_id=1524821963]
+layout_mode = 2
+text = "FALHA NA CONTENÇÃO"
+horizontal_alignment = 1
+
+[node name="StatsLabel" type="Label" parent="Panel/VBox" unique_id=34885920]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+text = "Tempo: 00:00
+Nível: 1
+Inimigos eliminados: 0"
+
+[node name="RestartButton" type="Button" parent="Panel/VBox" unique_id=570969144]
+layout_mode = 2
+text = "Reiniciar"
+
+[node name="MenuButton" type="Button" parent="Panel/VBox" unique_id=940387352]
+layout_mode = 2
+text = "Voltar ao Menu"

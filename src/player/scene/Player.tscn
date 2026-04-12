@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://crfdcp7k68sxw"]
 
-[ext_resource type="Texture2D" uid="uid://batjdaintn7u0" path="res://src/player/assets/alienGreen_front.png" id="1_jvq8d"]
+[ext_resource type="Texture2D" uid="uid://batjdaintn7u0" path="res://src/player/asset/alienGreen_front.png" id="1_jvq8d"]
+[ext_resource type="Script" uid="uid://dutgh6ca7vd8k" path="res://src/player/script/Player.gd" id="1_uw6w5"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_uw6w5"]
 animations = [{
@@ -22,6 +23,7 @@ radius = 53.0
 height = 158.0
 
 [node name="Player" type="CharacterBody2D" unique_id=2075353333]
+script = ExtResource("1_uw6w5")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=29865821]
 sprite_frames = SubResource("SpriteFrames_uw6w5")
@@ -33,7 +35,6 @@ shape = SubResource("CapsuleShape2D_jvq8d")
 debug_color = Color(0, 0.6, 0.7019608, 0.27450982)
 
 [node name="DamageArea" type="Area2D" parent="." unique_id=514167288]
-visible = false
 
 [node name="CollisionShape" type="CollisionShape2D" parent="DamageArea" unique_id=426439834]
 position = Vector2(-1, 56)

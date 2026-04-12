@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://b8mc1umf8ymly"]
+
+[ext_resource type="Script" uid="uid://cdlqko3fc3xjn" path="res://src/ui/screen/main-menu/MainMenu.gd" id="1_oow4v"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_oow4v"]
+font_size = 60
+
+[node name="MainMenu" type="Control" unique_id=1302090070]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_oow4v")
+
+[node name="TitleLabel" type="Label" parent="." unique_id=619330410]
+layout_mode = 0
+offset_left = 389.0
+offset_top = 102.0
+offset_right = 770.0
+offset_bottom = 199.0
+text = "DISSONANCE"
+label_settings = SubResource("LabelSettings_oow4v")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonBox" type="VBoxContainer" parent="." unique_id=1370719459]
+layout_mode = 0
+offset_left = 425.0
+offset_top = 213.0
+offset_right = 743.0
+offset_bottom = 432.0
+alignment = 1
+
+[node name="StartButton" type="Button" parent="ButtonBox" unique_id=1410824053]
+layout_mode = 2
+text = "Jogar"
+
+[node name="QuitButton" type="Button" parent="ButtonBox" unique_id=336783776]
+layout_mode = 2
+text = "Sair"

@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dhuy6uvhviqjo"]
+
+[ext_resource type="Script" uid="uid://bcfjvq40behow" path="res://_backup/scripts/LevelUpUI.gd" id="1_1xsrs"]
+
+[node name="LevelUpUI" type="CanvasLayer" unique_id=1196814145]
+script = ExtResource("1_1xsrs")
+
+[node name="Background" type="Panel" parent="." unique_id=509853756]
+
+[node name="HBox" type="HBoxContainer" parent="Background" unique_id=1004539804]
+layout_mode = 0
+
+[node name="WeaponPanel" type="VBoxContainer" parent="Background/HBox" unique_id=1973651717]
+layout_mode = 2
+
+[node name="WeaponTitle" type="Label" parent="Background/HBox/WeaponPanel" unique_id=582265342]
+layout_mode = 2
+text = "Sintonização de Armas"
+horizontal_alignment = 1
+
+[node name="ModulePanel" type="VBoxContainer" parent="Background/HBox" unique_id=212403154]
+layout_mode = 2
+
+[node name="ModuleTitle" type="Label" parent="Background/HBox/ModulePanel" unique_id=1013284722]
+layout_mode = 2
+text = "Módulos Gerais"
+horizontal_alignment = 1
+
+[node name="ConfirmButton" type="Button" parent="Background" unique_id=1036191449]
+layout_mode = 0
+offset_left = 77.0
+offset_top = 39.0
+offset_right = 164.0
+offset_bottom = 70.0
+text = "Confirmar"
