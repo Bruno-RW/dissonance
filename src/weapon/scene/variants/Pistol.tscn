@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://d0sujt5tm3ox7"]
+
+[ext_resource type="Script" uid="uid://bt66yo2hbx1bb" path="res://src/weapon/script/variants/Pistol.gd" id="1_ahfsf"]
+[ext_resource type="Texture2D" uid="uid://ekygufjhqu7g" path="res://src/weapon/asset/weapons/tile_0000.png" id="2_8iwfb"]
+
+[node name="Pistol" type="Node2D" unique_id=641881626]
+script = ExtResource("1_ahfsf")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1179999832]
+texture = ExtResource("2_8iwfb")
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=1869104886]
+position = Vector2(5, -1)
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=1156890433]
+one_shot = true
+
+[node name="Particles" type="GPUParticles2D" parent="." unique_id=213244255]
+position = Vector2(5, -1)

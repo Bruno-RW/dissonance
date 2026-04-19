@@ -1,4 +1,4 @@
-extends Weapon # This points to your Weapon.gd
+extends Weapon
 
 # --- Pistol Specific Branch Levels ---
 var branch_a: int = 0
@@ -14,8 +14,7 @@ var is_holding_fire: bool = false
 var bullet_script = preload("res://src/weapon/script/Bullet.gd")
 
 func _handle_input(delta: float) -> void:
-	# 'fire_timer' and 'fire_rate' come from the parent Weapon.gd
-	var firing = Input.is_action_pressed("fire") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
+	var firing = Input.is_action_pressed("fire")
 
 	# Branch C tier 2+: charge beam logic
 	if branch_c >= 2:

@@ -33,10 +33,13 @@ offset_right = 743.0
 offset_bottom = 432.0
 alignment = 1
 
-[node name="StartButton" type="Button" parent="ButtonBox" unique_id=1410824053]
+[node name="PlayButton" type="Button" parent="ButtonBox" unique_id=1410824053]
 layout_mode = 2
 text = "Jogar"
 
 [node name="QuitButton" type="Button" parent="ButtonBox" unique_id=336783776]
 layout_mode = 2
 text = "Sair"
+
+[connection signal="pressed" from="ButtonBox/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="ButtonBox/QuitButton" to="." method="_on_quit_button_pressed"]

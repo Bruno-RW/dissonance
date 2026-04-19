@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://dnseoqyt6sohx"]
+
+[ext_resource type="Script" uid="uid://cu8bgd6uve5ql" path="res://src/ui/screen/main-menu/selection/Selection.gd" id="1_to244"]
+
+[node name="Selection" type="Control" unique_id=1132803381]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_to244")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1718600271]
+layout_mode = 0
+offset_right = 1146.0
+offset_bottom = 646.0
+
+[node name="CharacterSelector" type="VBoxContainer" parent="." unique_id=2024298491]
+layout_mode = 0
+offset_left = 198.0
+offset_top = 69.0
+offset_right = 990.0
+offset_bottom = 289.0
+
+[node name="Title" type="Label" parent="CharacterSelector" unique_id=810997493]
+layout_mode = 2
+text = "SELECIONAR ENGENHEIRO"
+
+[node name="Buttons" type="HBoxContainer" parent="CharacterSelector" unique_id=256222860]
+layout_mode = 2
+
+[node name="Character1Button" type="Button" parent="CharacterSelector/Buttons" unique_id=437114344]
+layout_mode = 2
+text = "Pistola"
+
+[node name="Character2Button" type="Button" parent="CharacterSelector/Buttons" unique_id=974146015]
+layout_mode = 2
+text = "Escopeta"
+
+[node name="Character3Button" type="Button" parent="CharacterSelector/Buttons" unique_id=1620393624]
+layout_mode = 2
+text = "Precisao"
+
+[node name="Character4Button" type="Button" parent="CharacterSelector/Buttons" unique_id=1269156935]
+layout_mode = 2
+text = "SMG"
+
+[node name="LevelSelector" type="VBoxContainer" parent="." unique_id=1487925145]
+layout_mode = 0
+offset_left = 189.0
+offset_top = 317.0
+offset_right = 1018.0
+offset_bottom = 598.0
+
+[node name="Title" type="Label" parent="LevelSelector" unique_id=1891220603]
+layout_mode = 2
+text = "SELECIONAR NIVEL"
+
+[node name="Buttons" type="HBoxContainer" parent="LevelSelector" unique_id=1022847154]
+layout_mode = 2
+
+[node name="Level1Button" type="Button" parent="LevelSelector/Buttons" unique_id=1828798404]
+layout_mode = 2
+text = "Medio"
+
+[node name="Level2Button" type="Button" parent="LevelSelector/Buttons" unique_id=1842560794]
+layout_mode = 2
+text = "Pequeno"
+
+[node name="Level3Button" type="Button" parent="LevelSelector/Buttons" unique_id=1449627948]
+layout_mode = 2
+text = "Grande"
+
+[node name="Level4Button" type="Button" parent="LevelSelector/Buttons" unique_id=654257704]
+layout_mode = 2
+text = "Dinamico"
+
+[node name="StartButton" type="Button" parent="." unique_id=75630239]
+layout_mode = 0
+offset_left = 241.0
+offset_top = 494.0
+offset_right = 756.0
+offset_bottom = 545.0
+text = "COMEÇAR"
+
+[connection signal="pressed" from="CharacterSelector/Buttons/Character1Button" to="." method="_on_character_1_button_pressed"]
+[connection signal="pressed" from="CharacterSelector/Buttons/Character2Button" to="." method="_on_character_2_button_pressed"]
+[connection signal="pressed" from="CharacterSelector/Buttons/Character3Button" to="." method="_on_character_3_button_pressed"]
+[connection signal="pressed" from="CharacterSelector/Buttons/Character4Button" to="." method="_on_character_4_button_pressed"]
+[connection signal="pressed" from="LevelSelector/Buttons/Level1Button" to="." method="_on_level_1_button_pressed"]
+[connection signal="pressed" from="LevelSelector/Buttons/Level2Button" to="." method="_on_level_2_button_pressed"]
+[connection signal="pressed" from="LevelSelector/Buttons/Level3Button" to="." method="_on_level_3_button_pressed"]
+[connection signal="pressed" from="LevelSelector/Buttons/Level4Button" to="." method="_on_level_4_button_pressed"]
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

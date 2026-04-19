@@ -1,9 +1,29 @@
 [gd_scene format=3 uid="uid://5g7denfe1gt0"]
 
-[node name="Area2D" type="Area2D" unique_id=1884002147]
+[ext_resource type="Script" uid="uid://bkgms3seqb3jt" path="res://src/weapon/script/Bullet.gd" id="1_l3n07"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pced8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pced8"]
+radius = 0.61538464
+height = 1.2307693
+
+[node name="Bullet" type="Area2D" unique_id=1884002147]
+script = ExtResource("1_l3n07")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1539990772]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D" unique_id=2023394079]
+position = Vector2(1.1920929e-07, 0)
+scale = Vector2(5.3125, 1.625)
+texture = SubResource("PlaceholderTexture2D_pced8")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=708271297]
+position = Vector2(-1, -1)
+rect = Rect2(-2, 0, 6, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2023394079]
+position = Vector2(1.1920929e-07, 2.8865799e-15)
+rotation = 1.5707965
+scale = Vector2(1.625, 5.3125)
+shape = SubResource("CapsuleShape2D_pced8")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

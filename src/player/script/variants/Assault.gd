@@ -4,8 +4,7 @@ extends BasePlayer
 @export var dash_duration: float = 0.2
 
 func _ready() -> void:
-	super._ready() # Calls BasePlayer _ready
-	# Assault-specific base stat tweaks
+	super._ready()
 	base_speed = 220.0 
 	_apply_stats()
 
@@ -23,11 +22,8 @@ func _start_dash() -> void:
 	if dash_dir == Vector2.ZERO:
 		dash_dir = Vector2.RIGHT.rotated(get_local_mouse_position().angle())
 	
-	# Apply Dash
 	velocity = dash_dir * dash_speed
-	
-	# Start Cooldown
-	start_protocol_cooldown(5.0) 
+	start_ability_cooldown(5.0) 
 	
 	# End Dash after duration
 	await get_tree().create_timer(dash_duration).timeout

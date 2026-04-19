@@ -27,19 +27,23 @@ func _physics_process(delta):
 func _on_body_entered(body):
 	if body.is_in_group("enemy"):
 		body.take_damage(damage)
-		
-		if pierce_count > 0:
-			pierce_count -= 1
 
+		if pierce_count > 0: pierce_count -= 1
 		else:
 			if explode_on_impact: _spawn_explosion()
 			queue_free()
-			
+
 	elif body is TileMapLayer: # Collision with Arena walls
 		if bounces > 0:
 			# Simple bounce logic: reflect velocity
 			# (Requires a slightly more complex raycast or kinematic check)
 			bounces -= 1
-			
+
 		else:
 			queue_free()
+
+func _spawn_explosion():
+	# var exp = preload("res://src/weapon/scene/Explosion.tscn").instantiate()
+	# exp.global_position = global_position
+	# get_tree().current_scene.add_child(exp)
+	print("Anomalia Detectada: Explosão rúnica disparada!")

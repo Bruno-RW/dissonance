@@ -1,13 +1,11 @@
 extends Control
 
-@onready var start_btn: Button = $ButtonBox/StartButton
-@onready var quit_btn: Button = $ButtonBox/QuitButton
-@onready var title: Label = $TitleLabel
-
 func _ready() -> void:
-	start_btn.pressed.connect(_on_start)
-	quit_btn.pressed.connect(func(): get_tree().quit())
+	pass
 
-func _on_start() -> void:
-	get_tree().change_scene_to_file("res://src/ui/screen/game/Game.tscn")
-	GameManager.call_deferred("start_game")
+func _on_play_button_pressed() -> void:
+	var selection_scene = "res://src/ui/screen/main-menu/selection/Selection.tscn"
+	get_tree().change_scene_to_file(selection_scene)
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()

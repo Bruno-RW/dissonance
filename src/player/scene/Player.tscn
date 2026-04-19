@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://crfdcp7k68sxw"]
 
-[ext_resource type="Texture2D" uid="uid://batjdaintn7u0" path="res://src/player/asset/alienGreen_front.png" id="1_jvq8d"]
 [ext_resource type="Script" uid="uid://dutgh6ca7vd8k" path="res://src/player/script/Player.gd" id="1_uw6w5"]
+[ext_resource type="Texture2D" uid="uid://1ag2cagcat6j" path="res://src/player/asset/character/alienGreen_front.png" id="2_uw6w5"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_uw6w5"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_jvq8d")
+"texture": ExtResource("2_uw6w5")
 }],
 "loop": true,
 "name": &"still",
