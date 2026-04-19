@@ -1,8 +1,8 @@
 extends Node
 
 # On level-up: emit signal with two panels:
-#   1. Weapon Sintonização — pick one branch node to advance
-#   2. General Modules     — pick one of 4 random passive modules
+#   1. Weapon Tree — pick one branch node to advance
+#   2. General Modules — pick one of 4 random passive modules
 #
 # The LevelUpUI reads these and presents the choice. Player confirms → apply.
 
@@ -37,13 +37,15 @@ func _on_level_up(_new_level: int) -> void:
 
 func _build_weapon_options() -> Array:
 	var weapon = get_tree().get_first_node_in_group("weapon")
-	if not weapon or not weapon.has_method("get_upgrade_tree"):
-		return []
+	if not weapon or not weapon.has_method("get_upgrade_tree"): return []
+
 	var tree: Array = weapon.get_upgrade_tree()
 	var opts: Array = []
+
 	for branch_data in tree:
 		var branch = branch_data["branch"]
 		var tiers: Array = branch_data["tiers"]
+
 		# Find the next unlockable tier
 		for tier_data in tiers:
 			if not tier_data["unlocked"]:
@@ -54,6 +56,7 @@ func _build_weapon_options() -> Array:
 					"branch": branch
 				})
 				break
+
 	return opts
 
 func _pick_modules(count: int) -> Array:
@@ -66,14 +69,18 @@ func _pick_modules(count: int) -> Array:
 func apply_weapon_upgrade(choice_id: String) -> void:
 	var branch = choice_id.replace("weapon_", "")
 	var weapon = get_tree().get_first_node_in_group("weapon")
+
 	if weapon and weapon.has_method("unlock_branch"):
 		weapon.unlock_branch(branch)
+
 	emit_signal("upgrade_applied", "weapon", choice_id)
 
 func apply_module_upgrade(module_id: String) -> void:
 	var player = get_tree().get_first_node_in_group("player")
+
 	if player and player.has_method("apply_general_upgrade"):
 		player.apply_general_upgrade(module_id)
+
 	emit_signal("upgrade_applied", "module", module_id)
 
 func finish_upgrade() -> void:

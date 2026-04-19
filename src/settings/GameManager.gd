@@ -81,9 +81,6 @@ func start_game() -> void:
 	var arena = get_tree().get_first_node_in_group("arena")
 	var player = get_tree().get_first_node_in_group("player")
 
-	print(arena)
-	print(player)
-
 	if arena and player and arena.has_method("get_center"):
 		player.global_position = arena.get_center()
 

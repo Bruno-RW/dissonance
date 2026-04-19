@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b6jx0o2jvflql"]
 
-[ext_resource type="Script" uid="uid://cy3auw7gh4tqo" path="res://_backup/scripts/HUD.gd" id="1_dad8x"]
+[ext_resource type="Script" uid="uid://c54bvlxf5c1fh" path="res://src/ui/hud/gameplay/GameplayHUD.gd" id="1_dad8x"]
 
 [node name="GameplayHUD" type="CanvasLayer" unique_id=1079038509]
 script = ExtResource("1_dad8x")
@@ -39,7 +39,7 @@ offset_right = 1134.0
 offset_bottom = 33.0
 text = "☠ 0"
 
-[node name="DashLabel" type="Label" parent="." unique_id=2022470477]
+[node name="AbilityLabel" type="Label" parent="." unique_id=2022470477]
 offset_left = 13.0
 offset_top = 601.0
 offset_right = 132.0

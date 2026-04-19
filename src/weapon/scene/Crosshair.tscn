@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bp5m2lpndi63g"]
+
+[ext_resource type="Script" uid="uid://ciskd31b64yvc" path="res://src/weapon/script/Crosshair.gd" id="1_38rnt"]
+[ext_resource type="Texture2D" uid="uid://c3ip6i2gcoqh8" path="res://src/weapon/asset/crosshair/tile_0035.png" id="1_770hh"]
+
+[node name="Reticle" type="Node2D" unique_id=132830537]
+script = ExtResource("1_38rnt")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=561276989]
+texture = ExtResource("1_770hh")
