@@ -38,6 +38,7 @@ var ability_cd_timer: float = 0.0
 #~ === === === BASE METHODS === === === ~#
 func _ready() -> void:
 	add_to_group("player")
+	
 	_apply_stats()
 	current_hp = max_hp
 

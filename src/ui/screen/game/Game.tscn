@@ -1,9 +1,7 @@
 [gd_scene format=3 uid="uid://d17v7gxcs2whx"]
 
-[ext_resource type="PackedScene" uid="uid://c3bmj2sj88tw" path="res://src/level/scene/Level1.tscn" id="1_2yjv7"]
 [ext_resource type="Script" uid="uid://bijmvt1s5mwin" path="res://src/enemy/script/EnemySpawnManager.gd" id="2_2yjv7"]
 [ext_resource type="Script" uid="uid://b0i8bbmqaq0qw" path="res://src/settings/UpgradeManager.gd" id="3_2yjv7"]
-[ext_resource type="PackedScene" uid="uid://crfdcp7k68sxw" path="res://src/player/scene/Player.tscn" id="4_2yjv7"]
 [ext_resource type="PackedScene" uid="uid://b3n6trxy7hqbd" path="res://src/settings/camera/Camera.tscn" id="5_2yjv7"]
 [ext_resource type="PackedScene" uid="uid://b6jx0o2jvflql" path="res://src/ui/hud/gameplay/GameplayHUD.tscn" id="7_ow0d0"]
 [ext_resource type="PackedScene" path="res://_backup/scenes/GameOverUI.tscn" id="8_2yjv7"]
@@ -11,25 +9,24 @@
 
 [node name="Game" type="Node2D" unique_id=1887376652]
 
-[node name="Arena1" parent="." unique_id=1648345144 instance=ExtResource("1_2yjv7")]
-z_index = -1
+[node name="States" type="Node" parent="." unique_id=2044160160]
 
-[node name="EnemySpawnManager" type="Node" parent="." unique_id=211569567]
+[node name="EnemySpawnManager" type="Node" parent="States" unique_id=211569567]
 script = ExtResource("2_2yjv7")
 
-[node name="UpgradeManager" type="Node" parent="." unique_id=225274227]
+[node name="UpgradeManager" type="Node" parent="States" unique_id=225274227]
 script = ExtResource("3_2yjv7")
 
-[node name="Player" parent="." unique_id=2075353333 instance=ExtResource("4_2yjv7")]
-position = Vector2(2042, 1981)
+[node name="Interface" type="Node" parent="." unique_id=2492704]
+
+[node name="GameplayHUD" parent="Interface" unique_id=1079038509 instance=ExtResource("7_ow0d0")]
+
+[node name="LevelUpUI" parent="Interface" unique_id=1196814145 instance=ExtResource("9_ow0d0")]
+layer = 2
+visible = false
+
+[node name="GameOverUI" parent="Interface" unique_id=394815464 instance=ExtResource("8_2yjv7")]
+layer = 3
+visible = false
 
 [node name="Camera" parent="." unique_id=1515476248 instance=ExtResource("5_2yjv7")]
-position = Vector2(2025, 1999)
-
-[node name="GameplayHUD" parent="." unique_id=1079038509 instance=ExtResource("7_ow0d0")]
-
-[node name="LevelUpUI" parent="." unique_id=1196814145 instance=ExtResource("9_ow0d0")]
-visible = false
-
-[node name="GameOverUI" parent="." unique_id=394815464 instance=ExtResource("8_2yjv7")]
-visible = false

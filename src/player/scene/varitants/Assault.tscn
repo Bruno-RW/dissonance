@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bd3ugq7v6sctg"]
+
+[ext_resource type="PackedScene" uid="uid://crfdcp7k68sxw" path="res://src/player/scene/Player.tscn" id="1_jvdyq"]
+[ext_resource type="Script" uid="uid://crnmbton11m3w" path="res://src/player/script/variants/Assault.gd" id="2_6fdfx"]
+
+[node name="Assault" unique_id=2075353333 instance=ExtResource("1_jvdyq")]
+script = ExtResource("2_6fdfx")
+dash_speed = 800.0
+dash_duration = 0.2
+base_speed = 220.0

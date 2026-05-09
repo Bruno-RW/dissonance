@@ -14,6 +14,27 @@ enum GameState { MENU, PLAYING, PAUSED, LEVEL_UP, GAME_OVER }
 var state: GameState = GameState.MENU
 
 
+#? === === === SELECTION DATA === === === ?#
+enum CharacterType { ASSAULT, SUPPRESSION, PRECISION, INFILTRATION }
+enum LevelType { LEVEL1, LEVEL2, LEVEL3, LEVEL4 }
+
+var selected_character: CharacterType = CharacterType.ASSAULT
+var selected_level: LevelType = LevelType.LEVEL1
+
+var character_scenes: Dictionary = {
+	CharacterType.ASSAULT: preload("res://src/player/scene/varitants/Assault.tscn"),
+	# CharacterType.SUPPRESSION: preload("res://src/player/SuppressionUnit.tscn"),
+	# CharacterType.PRECISION: preload("res://src/player/PrecisionUnit.tscn"),
+	# CharacterType.INFILTRATION: preload("res://src/player/InfiltrationUnit.tscn")
+}
+
+var level_scenes: Dictionary = {
+	LevelType.LEVEL1: preload("res://src/level/scene/Level1.tscn"),
+	# LevelType.LEVEL2: preload("res://src/level/scene/Level2.tscn"),
+	# LevelType.LEVEL3: preload("res://src/level/scene/Level3.tscn")
+}
+
+
 #? === === === ROUND === === === ?#
 var elapsed_time: float = 0.0
 var MATCH_DURATION: float = 15.0 * 60.0   # 15 minutes
@@ -27,21 +48,20 @@ var coins_collected: int = 0
 
 
 #? === === === DIFFICULTY === === === ?#
-# Returns a 0..1 factor based on elapsed time
 func get_difficulty_factor() -> float:
 	return clamp(elapsed_time / MATCH_DURATION, 0.0, 1.0)
 
 func get_enemy_hp_multiplier() -> float:
-	return 1.0 + get_difficulty_factor() * 4.0   # 1x → 5x over 15 min
+	return 1.0 + get_difficulty_factor() * 4.0
 
 func get_enemy_speed_multiplier() -> float:
-	return 1.0 + get_difficulty_factor() * 1.5   # 1x → 2.5x
+	return 1.0 + get_difficulty_factor() * 1.5
 
 func get_enemy_damage_multiplier() -> float:
-	return 1.0 + get_difficulty_factor() * 2.0   # 1x → 3x
+	return 1.0 + get_difficulty_factor() * 2.0
 
 func get_xp_multiplier() -> float:
-	return 1.0 + get_difficulty_factor() * 2.0   # more XP later to keep levelling up
+	return 1.0 + get_difficulty_factor() * 2.0
 
 
 #? === === === EXPERIENCE (XP) === === === ?#
@@ -76,13 +96,22 @@ func start_game() -> void:
 	coins_collected = 0
 	state = GameState.PLAYING
 
+	# 1. Instance the selected Level
+	var level_scene = level_scenes[selected_level]
+	var level_instance = level_scene.instantiate()
+
+	get_tree().root.add_child(level_instance)
+
+	# 2. Instance the selected Character
+	var player_scene = character_scenes[selected_character]
+	var player_instance = player_scene.instantiate()
+
+	get_tree().root.add_child(player_instance)
+
 	await get_tree().process_frame
 
-	var arena = get_tree().get_first_node_in_group("arena")
-	var player = get_tree().get_first_node_in_group("player")
-
-	if arena and player and arena.has_method("get_center"):
-		player.global_position = arena.get_center()
+	# 3. Position player at center
+	player_instance.global_position = level_instance.get_center()
 
 	emit_signal("game_started")
 
@@ -95,13 +124,11 @@ func _process(delta: float) -> void:
 	elapsed_time += delta
 	emit_signal("timer_tick", elapsed_time)
 
-	if elapsed_time >= MATCH_DURATION:
-		# Boss should have been spawned at 15 min — handled by SpawnManager
-		pass
+	# Boss should have been spawned at 15 min — handled by SpawnManager
+	if elapsed_time >= MATCH_DURATION: pass
 
 
 #? === === === CAMERA ZOOM === === === ?#
-# Returns camera zoom level: starts tight (2.0), pulls out over time (1.0)
 func get_camera_zoom() -> float:
 	var t: float = get_difficulty_factor()
 	return lerp(1.0, 1.0, t)

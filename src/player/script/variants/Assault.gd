@@ -5,10 +5,11 @@ extends BasePlayer
 
 func _ready() -> void:
 	super._ready()
+	
 	base_speed = 220.0 
 	_apply_stats()
 
-func activate_protocol() -> void:
+func activate_ability() -> void:
 	_start_dash()
 
 func _start_dash() -> void:

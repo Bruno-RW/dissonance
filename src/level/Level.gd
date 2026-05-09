@@ -6,15 +6,17 @@ extends Node2D
 var _bounds: Rect2
 
 func _ready() -> void:
-	add_to_group("arena")
+	add_to_group("level")
+	
 	_bounds = _calculate_bounds_from_tilemaps()
-	if _bounds == Rect2():
-		_bounds = Rect2(
-			-arena_width * 0.5,
-			-arena_height * 0.5,
-			arena_width,
-			arena_height,
-		)
+	if _bounds != Rect2(): return
+
+	_bounds = Rect2(
+		-arena_width * 0.5,
+		-arena_height * 0.5,
+		arena_width,
+		arena_height,
+	)
 
 func get_bounds() -> Rect2: return _bounds
 
@@ -23,16 +25,23 @@ func get_center() -> Vector2:
 	return _bounds.position + _bounds.size * 0.5
 
 func _calculate_bounds_from_tilemaps() -> Rect2:
-	var floor_layer := get_node_or_null("FloorLayer") as Node2D
+	var floor_layer := get_node_or_null("FloorLayer")
 	if floor_layer == null: return Rect2()
 
+	# Check if it has the method to get used area
 	if not floor_layer.has_method("get_used_rect"): return Rect2()
 
 	var used_rect: Rect2 = floor_layer.get_used_rect()
 	if used_rect == Rect2(): return Rect2()
 
-	var cell_size: Vector2 = Vector2(16, 16)
-	if floor_layer.has_property("cell_size"):
+	# In Godot 4, cell size is inside the TileSet resource
+	var cell_size: Vector2 = Vector2(16, 16) # Default fallback
+	
+	if floor_layer is TileMapLayer and floor_layer.tile_set:
+		var rendering_size = floor_layer.tile_set.tile_size
+		cell_size = Vector2(rendering_size.x, rendering_size.y)
+
+	elif "cell_size" in floor_layer: # Check if property exists using 'in'
 		cell_size = floor_layer.cell_size
 
 	var top_left: Vector2 = floor_layer.position + used_rect.position * cell_size

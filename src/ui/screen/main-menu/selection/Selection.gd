@@ -13,8 +13,8 @@ extends Node
 	$LevelSelector/Buttons/Level4Button
 ]
 
-var selected_character: String = "Assault"
-var selected_level: String = "res://src/level/scene/Level1.tscn"
+var selected_character: GameManager.CharacterType = GameManager.CharacterType.ASSAULT
+var selected_level: GameManager.LevelType = GameManager.LevelType.LEVEL1
 
 
 #~ === === === BASE METHODS === === === ~#
@@ -31,44 +31,44 @@ func _update_button_states(button_list: Array, button_index: int) -> void:
 
 #~ === === === CHARACTER BUTTONS === === === ~#
 func _on_character_1_button_pressed() -> void:
-	selected_character = "Assault"
+	selected_character = GameManager.CharacterType.ASSAULT
 	_update_button_states(char_buttons, 0)
 
 func _on_character_2_button_pressed() -> void:
-	selected_character = "Suppression"
+	selected_character = GameManager.CharacterType.SUPPRESSION
 	_update_button_states(char_buttons, 1)
 
 func _on_character_3_button_pressed() -> void:
-	selected_character = "Precision"
+	selected_character = GameManager.CharacterType.PRECISION
 	_update_button_states(char_buttons,2)
 
 func _on_character_4_button_pressed() -> void:
-	selected_character = "Infiltration"
+	selected_character = GameManager.CharacterType.INFILTRATION
 	_update_button_states(char_buttons, 3)
 
 
 #~ === === === LEVEL BUTTONS === === === ~#
 func _on_level_1_button_pressed() -> void:
-	selected_level = "res://src/level/scene/Level1.tscn" # Setor de Testes
+	selected_level = GameManager.LevelType.LEVEL1
 	_update_button_states(level_buttons, 0)
 
 func _on_level_2_button_pressed() -> void:
-	selected_level = "res://src/level/scene/Level2.tscn" # Laboratório de Controle
+	selected_level = GameManager.LevelType.LEVEL2
 	_update_button_states(level_buttons, 1)
 
 func _on_level_3_button_pressed() -> void:
-	selected_level = "res://src/level/scene/Level3.tscn" # Complexo Industrial
+	selected_level = GameManager.LevelType.LEVEL3
 	_update_button_states(level_buttons, 2)
 
 func _on_level_4_button_pressed() -> void:
-	selected_level = "res://src/level/scene/Level4.tscn" # A Singularidade
+	selected_level = GameManager.LevelType.LEVEL4
 	_update_button_states(level_buttons, 3)
 
 
 #~ === === === START BUTTON === === === ~#
 func _on_start_button_pressed() -> void:
 	GameManager.selected_character = selected_character
-	GameManager.selected_level_path = selected_level
+	GameManager.selected_level = selected_level
 	
 	var game_scene = "res://src/ui/screen/game/Game.tscn"
 	get_tree().change_scene_to_file(game_scene)

@@ -10,6 +10,7 @@ var _player: Node2D = null
 func _ready() -> void:
 	await get_tree().process_frame
 	_player = get_tree().get_first_node_in_group("player")
+	
 	make_current()
 
 func _process(delta: float) -> void:
