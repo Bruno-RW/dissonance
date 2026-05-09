@@ -1,48 +1,76 @@
 extends Node2D
 
-@export var arena_width: float = 1600.0
-@export var arena_height: float = 1600.0
-
 var _bounds: Rect2
 
 func _ready() -> void:
 	add_to_group("level")
-	
+	_update_bounds()
+
+func get_bounds() -> Rect2: 
+	return _bounds
+
+func get_center() -> Vector2:
+	return _bounds.get_center()
+
+
+#? === === === UTIL === === === ?#
+func _update_bounds() -> void:
+	#? 1. Check for a dedicated "Bounds" node
+	var bounds_node = get_node_or_null("Bounds")
+
+	var has_bounds_node = bounds_node and "size" in bounds_node
+	if has_bounds_node:
+		_bounds = Rect2(bounds_node.position, bounds_node.size)
+		return
+
+	#? 2. Try to calculate from TileMaps
 	_bounds = _calculate_bounds_from_tilemaps()
 	if _bounds != Rect2(): return
 
-	_bounds = Rect2(
-		-arena_width * 0.5,
-		-arena_height * 0.5,
-		arena_width,
-		arena_height,
-	)
-
-func get_bounds() -> Rect2: return _bounds
-
-func get_center() -> Vector2:
-	if _bounds == Rect2(): return Vector2(0, 0)
-	return _bounds.position + _bounds.size * 0.5
+	#? 3. Fallback: Calculate a bounding box that fits ALL children
+	_bounds = _calculate_bounds_from_all_children()
 
 func _calculate_bounds_from_tilemaps() -> Rect2:
-	var floor_layer := get_node_or_null("FloorLayer")
-	if floor_layer == null: return Rect2()
+	# Search for any TileMapLayer if "FloorLayer" isn't found
+	var layer = get_node_or_null("FloorLayer")
+	if not layer:
+		for child in get_children():
+			if child != TileMapLayer: continue
 
-	# Check if it has the method to get used area
-	if not floor_layer.has_method("get_used_rect"): return Rect2()
+			layer = child
+			break
+	
+	var is_invalid_layer = not layer or not layer.has_method("get_used_rect")
+	if is_invalid_layer: return Rect2()
 
-	var used_rect: Rect2 = floor_layer.get_used_rect()
+	var used_rect: Rect2 = layer.get_used_rect()
 	if used_rect == Rect2(): return Rect2()
 
-	# In Godot 4, cell size is inside the TileSet resource
-	var cell_size: Vector2 = Vector2(16, 16) # Default fallback
+	# Godot 4 TileMapLayer cell size fix
+	var cell_size: Vector2 = Vector2(16, 16)
+	if layer.tile_set:
+		cell_size = layer.tile_set.tile_size
+
+	return Rect2(
+		layer.global_position + used_rect.position * cell_size,
+		used_rect.size * cell_size
+	)
+
+func _calculate_bounds_from_all_children() -> Rect2:
+	var total_rect = Rect2()
+	var first = true
 	
-	if floor_layer is TileMapLayer and floor_layer.tile_set:
-		var rendering_size = floor_layer.tile_set.tile_size
-		cell_size = Vector2(rendering_size.x, rendering_size.y)
+	for child in get_children():
+		if child != Node2D: continue
 
-	elif "cell_size" in floor_layer: # Check if property exists using 'in'
-		cell_size = floor_layer.cell_size
+		if !first:
+			total_rect = total_rect.expand(child.global_position)
+			continue
 
-	var top_left: Vector2 = floor_layer.position + used_rect.position * cell_size
-	return Rect2(top_left, used_rect.size * cell_size)
+		# Use (0,0) as a starting point if no children exist yet
+		total_rect = Rect2(child.global_position, Vector2.ZERO)
+		first = false
+
+	
+	# Add a small margin so the player isn't touching the very edge
+	return total_rect.grow(50.0)
