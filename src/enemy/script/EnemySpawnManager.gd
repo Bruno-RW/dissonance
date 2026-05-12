@@ -6,9 +6,9 @@ extends Node
 #   Every 5.0 min → stage boss
 #   At 15 min     → final boss
 
-const EnemyFactoryScript = preload("res://src/enemy/script/EnemyFactory.gd")
+const EnemyFactory = preload("res://src/enemy/script/EnemyFactory.gd")
 
-@export var spawn_margin: float = 60.0   # pixels inset from arena edges when spawning enemies
+@export var spawn_margin: float = 60.0
 
 var _wave_timer: float = 0.0
 var _wave_interval: float = 2.5
@@ -18,18 +18,16 @@ var _next_mini_boss_time: float = 2.5 * 60.0
 var _next_stage_boss_time: float = 5.0 * 60.0
 var _final_boss_spawned: bool = false
 
-var _arena_bounds: Rect2 = Rect2(-800, -800, 1600, 1600)
 var _factory: Node
+var _level_bounds: Rect2
 
 func _ready() -> void:
 	_factory = Node.new()
-	_factory.set_script(EnemyFactoryScript)
+	_factory.set_script(EnemyFactory)
 
-	# Don't add to tree; use only as a namespace for make_enemy()
 	await get_tree().process_frame
-	var arena = get_tree().get_first_node_in_group("arena")
-	if arena and arena.has_method("get_bounds"):
-		_arena_bounds = arena.get_bounds()
+	var level = get_tree().get_first_node_in_group("level")
+	_level_bounds = level.get_bounds()
 
 func _process(delta: float) -> void:
 	if GameManager.state != GameManager.GameState.PLAYING: return
@@ -39,7 +37,7 @@ func _process(delta: float) -> void:
 
 func _handle_wave(delta: float) -> void:
 	_wave_timer -= delta
-	if _wave_timer > 0.0:return
+	if _wave_timer > 0.0: return
 
 	_wave_timer = _get_current_wave_interval()
 	_spawn_wave()
@@ -89,7 +87,7 @@ func _spawn_single(type_index: int) -> void:
 	get_tree().current_scene.add_child(enemy)
 
 func _get_spawn_position() -> Vector2:
-	var bounds = _arena_bounds
+	var bounds = _level_bounds
 	var safe_bounds = bounds.grow(-spawn_margin)
 
 	if safe_bounds.size.x <= 0.0 or safe_bounds.size.y <= 0.0:
