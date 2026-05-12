@@ -31,7 +31,7 @@ var extra_projectiles: int = 0       # integer
 
 #? === === === STATE === === === ?#
 var is_invincible: bool = false
-var _is_dead: bool = false
+var is_dead: bool = false
 var ability_cd_timer: float = 0.0
 
 
@@ -47,7 +47,7 @@ func _apply_stats() -> void:
 	speed = base_speed * speed_multiplier
 
 func _physics_process(delta: float) -> void:
-	if _is_dead: return
+	if is_dead: return
 	
 	# Update timers
 	if ability_cd_timer > 0:
@@ -86,12 +86,7 @@ func _handle_ability_input() -> void:
 
 #~ === === === ABSTRACT METHODS === === === ~#
 func activate_ability() -> void:
-	# This base function acts as a placeholder
-	print("Base Ability Activated - No unique effect defined.")
-
-	# Example of starting a generic cooldown
-	start_ability_cooldown(5.0)
-
+	pass
 
 #~ === === === UTIL === === === ~#
 func start_ability_cooldown(duration: float) -> void:
@@ -99,7 +94,7 @@ func start_ability_cooldown(duration: float) -> void:
 	emit_signal("ability_used", ability_cd_timer)
 
 func take_damage(amount: float) -> void:
-	if is_invincible or _is_dead: return
+	if is_invincible or is_dead: return
 	
 	current_hp -= amount
 	emit_signal("hp_changed", current_hp, max_hp)
@@ -107,5 +102,5 @@ func take_damage(amount: float) -> void:
 	if current_hp <= 0: die()
 
 func die() -> void:
-	_is_dead = true
+	is_dead = true
 	emit_signal("player_died")
