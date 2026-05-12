@@ -96,13 +96,13 @@ func start_game() -> void:
 	coins_collected = 0
 	state = GameState.PLAYING
 
-	# 1. Instance the selected Level
+	#? 1. Instance the selected Level
 	var level_scene = level_scenes[selected_level]
 	var level_instance = level_scene.instantiate()
 
 	get_tree().root.add_child(level_instance)
 
-	# 2. Instance the selected Character
+	#? 2. Instance the selected Character
 	var player_scene = character_scenes[selected_character]
 	var player_instance = player_scene.instantiate()
 
@@ -110,7 +110,7 @@ func start_game() -> void:
 
 	await get_tree().process_frame
 
-	# 3. Position player at center
+	#? 3. Position player at center
 	player_instance.global_position = level_instance.get_center()
 
 	emit_signal("game_started")

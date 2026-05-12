@@ -10,9 +10,6 @@ func _ready() -> void:
 	_apply_stats()
 
 func activate_ability() -> void:
-	_start_dash()
-
-func _start_dash() -> void:
 	if is_invincible: return
 	
 	is_invincible = true

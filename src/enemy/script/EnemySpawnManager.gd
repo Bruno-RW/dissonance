@@ -19,8 +19,6 @@ var _next_stage_boss_time: float = 5.0 * 60.0
 var _final_boss_spawned: bool = false
 
 var _arena_bounds: Rect2 = Rect2(-800, -800, 1600, 1600)
-
-# Cached factory instance (needed because static funcs on script require an instance in GDScript)
 var _factory: Node
 
 func _ready() -> void:
